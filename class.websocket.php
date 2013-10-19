@@ -10,13 +10,13 @@ require 'class.user.php';
  **/
 abstract class WebSocket {
 	// The connected sockets
-	private $sockets = array();
+	protected $sockets = array();
 	// The sockets to listen for write events only
-	private $write = array();
+	protected $write = array();
 	// The sockets to listen for exceptions
-	private $except = array();
+	protected $except = array();
 	// The master socket
-	private $master = NULL;
+	protected $master = NULL;
 	
 	// The connected users 
 	protected $users = array();
@@ -231,7 +231,7 @@ abstract class WebSocket {
 	 *
 	 * @return The corresponding user or NULL if not found
 	 **/
-	private function getUserBySocket($socket){
+	protected function getUserBySocket($socket){
 		foreach($this->users as $user){
 			if($user->getSocket() == $socket){
 				return $user;
@@ -295,7 +295,7 @@ abstract class WebSocket {
 	 *
 	 * @param socket: The socket corresponding to the user
 	 **/
-	private function connect($socket){
+	protected function connect($socket){
 		// Create a new user for this socket
 		$user = new User($socket);
 		
@@ -312,7 +312,7 @@ abstract class WebSocket {
 	 *
 	 * @param socket: The socket that was disconnected
 	 **/
-	private function disconnect($socket){
+	protected function disconnect($socket){
 		// Look for the corresponding user
 		$found=null;
 		for($i=0, $n=count($this->users); $i<$n; ++$i){
